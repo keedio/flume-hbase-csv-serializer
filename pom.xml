@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.keedio.flume.sink.hbase</groupId>
-  <artifactId>offsetSerializer</artifactId>
+  <artifactId>csvSerializer</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
