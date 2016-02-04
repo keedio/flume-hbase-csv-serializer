@@ -11,6 +11,7 @@ public class CsvSerializerHelper {
 		
 	// TODO: Check correctly formed property
 	// TODO: Throws Exceptions
+	// TODO: Make configurable separator
 	public static List<String> getColumns(String line){
 		
 		List<String> outputList = new ArrayList<String>();
