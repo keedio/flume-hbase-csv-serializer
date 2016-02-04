@@ -35,6 +35,8 @@ import org.apache.hadoop.hbase.client.Row;
 import org.keedio.flume.sink.hbase.utils.CsvSerializerHelper;
 import org.keedio.flume.sink.hbase.utils.KeyType;
 import org.keedio.flume.sink.hbase.utils.RowKeyGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Charsets;
 import com.opencsv.CSVParser;
@@ -60,6 +62,8 @@ import com.opencsv.CSVParser;
  */
 public class CsvSerializer implements HbaseEventSerializer {
 	
+  private static final Logger LOG = LoggerFactory.getLogger(CsvSerializer.class);
+	
   private byte[] incrementRowKey;
   private byte[] cf;
   
@@ -70,6 +74,7 @@ public class CsvSerializer implements HbaseEventSerializer {
   private List<String> columnNames;
   private CSVParser csvParser;
   
+  private int warnsCount; 
 
   public CsvSerializer(){
 
@@ -98,6 +103,8 @@ public class CsvSerializer implements HbaseEventSerializer {
       incCol = incrementColumnName.getBytes(Charsets.UTF_8);
     }
     
+    warnsCount = 0;
+    
     csvParser = new CSVParser(context.getString("csvSeparator",",").charAt(0));
   }
 
@@ -121,8 +128,9 @@ public class CsvSerializer implements HbaseEventSerializer {
     List<Row> actions = new LinkedList<Row>();
     byte[] rowKey;
     
-	if (columnNames.size() != eventSplitted.length){
-	  throw new FlumeException("Columns name configured and elements in the events doesn't match");
+	if (warnsCount < 1 && columnNames.size() != eventSplitted.length){
+		LOG.warn("Columns name configured and elements in the events doesn't match!!");
+		warnsCount++;
 	}
     
     try {
