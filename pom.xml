@@ -7,13 +7,42 @@
   <version>0.0.2</version>
   <packaging>jar</packaging>
 
-  <name>metricsSerializer</name>
-  <url>http://maven.apache.org</url>
+  <name>Flume Hbase CSV Serializer</name>
+  <url>https://github.com/keedio/flume-hbase-csv-serializer</url>
+  
+  <description>Flume HBase Serializer to split Flume CSV events into HBase table columns</description>
+  
+  <organization>
+    <name>Keedio</name>
+    <url>www.keedio.org</url>
+  </organization>
+  
+  <scm>
+    <url>https://github.com/keedio/flume-hbase-csv-serializer.git</url>
+    <connection>scm:git:git@github.com:keedio/flume-hbase-csv-serializer.git</connection>
+    <developerConnection>scm:git:git@github.com:keedio/flume-hbase-csv-serializer.git</developerConnection>
+  </scm>
+  
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  
+  <developers>
+    <developer>
+      <name>Marcelo Valle Ávila</name>
+      <email>mvalle@keedio.org</email>
+      <organization>Keedio</organization>
+      <organizationUrl>http://www.keedio.com</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
+  
   <dependencies>
     <dependency>
       <groupId>org.apache.flume</groupId>
@@ -45,6 +74,7 @@
       <version>3.5</version>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
@@ -66,6 +96,32 @@
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
